@@ -1,7 +1,7 @@
 import '../styles/globals.css';
 function MyApp({ Component, pageProps }) {
 	return (
-		<div className="container mx-auto px-20 py-20 min-h-screen bg-slate-600">
+		<div className="md:container md:mx-auto min-h-screen">
 			<Component {...pageProps} />
 		</div>
 	);

@@ -1,5 +1,4 @@
 import { useState, useCallback } from 'react';
-import data from '../api/data.json';
 import Character from '../components/character';
 import Filter from '../components/filter';
 import filterData from '../api/filter';
@@ -18,6 +17,12 @@ export default function Home({ data }) {
 	const [rarity, setRarity] = useState('');
 	const [openVision, setOpenVision] = useState(false);
 	const [openRarity, setOpenRarity] = useState(false);
+
+	const handleReset = () => {
+		setCharacters(data);
+		setOpenVision(false);
+		setOpenRarity(false);
+	};
 
 	const handleSelect = useCallback((e) => {
 		const name = e.target.innerText;
@@ -61,7 +66,7 @@ export default function Home({ data }) {
 		setCharacters(filter);
 	});
 	return (
-		<div className="w-full">
+		<div className="w-full  px-20 py-20 bg-slate-800">
 			<div className="py-4 flex flex-wrap">
 				<Filter
 					handleSelect={handleSelect}
@@ -79,11 +84,11 @@ export default function Home({ data }) {
 				/>
 				<button
 					className="px-8 py-1 text-orange-200 text-sm rounded-full border border-orange-200 focus:outline-none"
-					onClick={() => setCharacters(data)}>
+					onClick={handleReset}>
 					Reset
 				</button>
 				<div className="w-full flex flex-wrap items-center">
-					<Character characters={characters} element={vision} rarity={rarity} />
+					<Character characters={characters} />
 				</div>
 			</div>
 		</div>
