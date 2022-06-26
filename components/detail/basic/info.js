@@ -1,4 +1,4 @@
-import Star from '../star';
+import Star from './star';
 export default function CharacterInfo({ character, background }) {
 	const filterValue = Object.values(character.filter_values);
 	return (
@@ -31,11 +31,11 @@ export default function CharacterInfo({ character, background }) {
 						</div>
 					</div>
 					{/* character bio */}
-					<div className="flex gap-4 mt-3">
+					<div className="flex flex-wrap gap-2 mt-3">
 						{filterValue.map((val, i) => (
 							<div
 								key={i}
-								className="text-white text-xs px-3 bg-black p-1 rounded-md bg-opacity-40">
+								className="text-white text-xs px-3 bg-black p-1 rounded-md bg-opacity-40 w-fit">
 								{val}
 							</div>
 						))}

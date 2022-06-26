@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
-import Character from '../components/character';
-import Filter from '../components/filter';
+import Character from '../components/card/character';
+import Filter from '../components/filter/filter';
 import filterData from '../api/filter';
 
 export async function getServerSideProps() {
@@ -66,7 +66,7 @@ export default function Home({ data }) {
 		setCharacters(filter);
 	});
 	return (
-		<div className="w-full  px-20 py-20 bg-slate-800">
+		<div className="w-full px-20 py-20 bg-slate-800 min-h-screen">
 			<div className="py-4 flex flex-wrap">
 				<Filter
 					handleSelect={handleSelect}
