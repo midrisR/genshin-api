@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-export default function InfoTalent({ talents, select }) {
+export default function InfoTalent({ talents }) {
 	const [load, setLoad] = useState(true);
 	const anchorTagsRemoved = talents.desc
 		.replace(/(<|&lt;)br\s*\/*(>|&gt;)/g, ' ')
