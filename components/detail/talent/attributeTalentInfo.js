@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import Image from 'next/image';
 export default React.memo(function AttributeTalentInfo({ talent, background }) {
 	const [data, setData] = useState([]);
 
 	const x = talent.materials && talent.materials.map((n) => n.map(({ ep_id }) => ep_id));
+	const url = process.env.URL_MATERIAL;
 	async function getImage(id) {
-		const url = 'https://backend-api-genshin.herokuapp.com/material/find';
 		try {
 			const { data } = await axios.post(url, { material: id });
 			setData(data);
@@ -22,7 +22,18 @@ export default React.memo(function AttributeTalentInfo({ talent, background }) {
 	const Icon = ({ id }) => {
 		const result = data.find((c) => c.material_id === id.toString());
 		if (!result) return <p>loading</p>;
-		return <img src={result.icon_url} alt={result.name} className="w-20" />;
+		return (
+			<div
+				className="rounded-xl overflow-hidden"
+				style={{
+					width: '2rem',
+					height: '2rem',
+					position: 'relative',
+				}}>
+				{' '}
+				<Image src={result.icon_url} alt={result.name} layout="fill" objectFit="cover" />
+			</div>
+		);
 	};
 
 	return (

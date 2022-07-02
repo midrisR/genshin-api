@@ -11,10 +11,19 @@ export default React.memo(function Character({ characters }) {
 							<a>
 								<div className="w-full relative bg-slate-600 p-6 rounded-xl shadow-lg overflow-hidden">
 									{character.filter_values?.character_vision !== undefined && (
-										<img
-											src={`images/${character.filter_values.character_vision}.png`}
-											className="w-8 absolute z-10 left-12 lg:left-3"
-										/>
+										<div
+											className="rounded-xl overflow-hidden"
+											style={{
+												width: '2rem',
+												height: '2rem',
+												position: 'absolute',
+											}}>
+											<Image
+												src={`/images/${character.filter_values.character_vision}.png`}
+												layout="fill"
+												objectFit="cover"
+											/>
+										</div>
 									)}
 									<div className="mx-auto rounded-full overflow-hidden w-40	md:w-auto">
 										<Image

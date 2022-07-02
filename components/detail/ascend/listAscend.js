@@ -6,9 +6,13 @@ import ListMaterial from './listMaterial';
 
 export default function ListAscend({ level, id, materials }) {
 	const combat = level.slice(1);
-	const address = 'https://backend-api-genshin.herokuapp.com/material/find';
 	const fetcher = async (url) => await axios.post(url, { material: id }).then((res) => res.data);
-	const { data, mutate } = useSWR(address, fetcher, { revalidateOnMount: false });
+	const url = 'https://backend-api-genshin.herokuapp.com/material/find/';
+	const { data, mutate } = useSWR(url, fetcher, {
+		revalidateOnMount: false,
+	});
+
+	console.log(process.env.URL_MATERIAL, url);
 
 	useEffect(() => {
 		mutate();

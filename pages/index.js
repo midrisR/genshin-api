@@ -4,7 +4,7 @@ import Filter from '../components/filter/filter';
 import filterData from '../api/filter';
 
 export async function getServerSideProps() {
-	const res = await fetch('https://backend-api-genshin.herokuapp.com/characters');
+	const res = await fetch(process.env.URL);
 	const data = await res.json();
 	return {
 		props: { data },

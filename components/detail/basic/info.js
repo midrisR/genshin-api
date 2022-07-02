@@ -1,4 +1,6 @@
 import Star from './star';
+import Image from 'next/image';
+
 export default function CharacterInfo({ character, background }) {
 	const filterValue = Object.values(character.filter_values);
 	return (
@@ -10,7 +12,19 @@ export default function CharacterInfo({ character, background }) {
 						className={`${
 							background[character.filter_values.character_vision]
 						} shadow-xl rounded-xl overflow-hidden`}>
-						<img src={character.icon_url} className="rounded-lg w-20" alt="" />
+						<div
+							style={{
+								width: '5rem',
+								height: '5rem',
+								position: 'relative',
+							}}>
+							<Image
+								src={character.icon_url}
+								layout="fill"
+								objectFit="cover"
+								alt={character.name}
+							/>
+						</div>
 					</div>
 					{/* character info */}
 					<div className="info">
@@ -18,10 +32,18 @@ export default function CharacterInfo({ character, background }) {
 							<p className="text-white text-2xl font-black uppercase">
 								{character.name}
 							</p>
-							<div className="">
-								<img
-									src={`../images/${character.filter_values.character_vision}.png`}
-									className="w-8 absolute"
+							<div
+								className="rounded-xl overflow-hidden"
+								style={{
+									width: '1.5rem',
+									height: '1.5rem',
+									position: 'relative',
+								}}>
+								<Image
+									src={`/images/${character.filter_values.character_vision}.png`}
+									layout="fill"
+									objectFit="cover"
+									alt={character.filter_values.character_vision}
 								/>
 							</div>
 						</div>
