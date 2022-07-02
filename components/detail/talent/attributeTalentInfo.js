@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
+
 export default React.memo(function AttributeTalentInfo({ talent, background }) {
 	const [data, setData] = useState([]);
 
 	const x = talent.materials && talent.materials.map((n) => n.map(({ ep_id }) => ep_id));
-	const url = process.env.URL_MATERIAL;
+	const url = 'https://backend-api-genshin.herokuapp.com/material/find/';
 	async function getImage(id) {
 		try {
 			const { data } = await axios.post(url, { material: id });
@@ -26,8 +27,8 @@ export default React.memo(function AttributeTalentInfo({ talent, background }) {
 			<div
 				className="rounded-xl overflow-hidden"
 				style={{
-					width: '2rem',
-					height: '2rem',
+					width: '5rem',
+					height: '5rem',
 					position: 'relative',
 				}}>
 				{' '}

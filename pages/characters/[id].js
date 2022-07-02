@@ -9,7 +9,7 @@ import Constellation from '../../components/detail/constellation';
 
 export async function getServerSideProps(ctx) {
 	const { id } = ctx.params;
-	const res = await axios.get(process.env.URL + id);
+	const res = await axios.get(`https://backend-api-genshin.herokuapp.com/characters/${id}`);
 	const character = res.data;
 	return {
 		props: { character },
