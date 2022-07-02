@@ -1,41 +1,52 @@
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import AttributeCard from '../../components/detail/attribute/attributeCard';
+import AttributeCard from '../../components/detail/attribute';
 import CharacterInfo from '../../components/detail/basic/info';
 import AttributeTalent from '../../components/detail/talent';
 import AttributeAscend from '../../components/detail/ascend';
+import Constellation from '../../components/detail/constellation';
+
 export async function getServerSideProps(ctx) {
 	const { id } = ctx.params;
-	const res = await axios.get(`http://localhost:5000/characters/${id}`);
+	const res = await axios.get(`https://backend-api-genshin.herokuapp.com/characters/${id}`);
 	const character = res.data;
 	return {
 		props: { character },
 	};
 }
 
-export default function DetailCharacter({ character }) {
-	const background = {
-		Pyro: 'bg-red-800',
-		Anemo: 'bg-teal-800',
-		Hydro: 'bg-blue-800',
-		Electro: 'bg-purple-800',
-		Cryo: 'bg-sky-500',
-		Geo: 'bg-yellow-800',
-	};
-	const elementalCard = {
-		Pyro: 'bg-red-900/70',
-		Anemo: 'bg-teal-900/70',
-		Hydro: 'bg-sky-900/70',
-		Electro: 'bg-purple-900/70',
-		Cryo: 'bg-cyan-900/70',
-		Geo: 'bg-yellow-900/70',
-	};
+const background = {
+	Pyro: 'bg-red-800',
+	Anemo: 'bg-teal-800',
+	Hydro: 'bg-blue-800',
+	Electro: 'bg-purple-800',
+	Cryo: 'bg-sky-500',
+	Geo: 'bg-yellow-800',
+};
 
+const elementalCard = {
+	Pyro: 'bg-red-900',
+	Anemo: 'bg-teal-900',
+	Hydro: 'bg-blue-900',
+	Electro: 'bg-purple-900',
+	Cryo: 'bg-cyan-900',
+	Geo: 'bg-yellow-900',
+};
+
+export default function DetailCharacter({ character }) {
 	const router = useRouter();
 	const handleClick = (e) => {
 		e.preventDefault();
 		router.push('/');
 	};
+
+	useEffect(() => {
+		let bg = document.getElementsByClassName('bg-overlay');
+		bg[0].classList.remove('opacity-0');
+		bg[0].classList.add('opacity-80');
+	}, []);
+
 	return (
 		<div
 			className={`${
@@ -47,7 +58,7 @@ export default function DetailCharacter({ character }) {
 				{/*default make h-screen in class*/}
 				<img
 					src={character.header_img_url}
-					className="opacity-80"
+					className="transition-all duration-1000  ease-in opacity-0 bg-overlay"
 					alt={character.name}
 					width="auto"
 				/>
@@ -68,21 +79,28 @@ export default function DetailCharacter({ character }) {
 					<span>Back</span>
 				</button>
 				<div>
-					<CharacterInfo character={character} background={background} />
-					{/* character all info */}
-					<AttributeCard
-						character={character.modules[0]}
-						background={elementalCard[character.filter_values.character_vision]}
-					/>
-					<AttributeAscend
-						ascen={character.modules[1]}
-						background={elementalCard[character.filter_values.character_vision]}
-					/>
+					<div className="lg:px-20 px-8">
+						<CharacterInfo character={character} background={background} />
+						{/* character all info */}
+						<AttributeCard
+							character={character.modules[0]}
+							background={elementalCard[character.filter_values.character_vision]}
+						/>
+						<AttributeAscend
+							ascen={character.modules[1]}
+							background={elementalCard[character.filter_values.character_vision]}
+						/>
+
+						<AttributeTalent
+							talent={character.modules[3]}
+							background={elementalCard[character.filter_values.character_vision]}
+						/>
+						<Constellation
+							constellation={character.modules[4]}
+							background={elementalCard[character.filter_values.character_vision]}
+						/>
+					</div>
 				</div>
-				<AttributeTalent
-					talent={character.modules[3]}
-					background={elementalCard[character.filter_values.character_vision]}
-				/>
 			</div>
 		</div>
 	);

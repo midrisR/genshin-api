@@ -1,28 +1,29 @@
-import { useEffect, useState } from 'react';
-export default function InfoTalent({ talents }) {
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
+
+export default React.memo(function InfoTalent({ talents }) {
 	const [load, setLoad] = useState(true);
-	const anchorTagsRemoved = talents.desc
-		.replace(/(<|&lt;)br\s*\/*(>|&gt;)/g, ' ')
-		.replace(/(<span)/gim, '<div')
-		.replace(/<\/span>/gim, '</div>');
+	const anchorTagsRemoved = talents.desc.replace(/(<|&lt;)br\s*\/*(>|&gt;)/g, ' ');
+	const [img, setImg] = useState(talents.talent_img);
+	// .replace(/(<span)/gim, '<div')
+	// .replace(/<\/span>/gim, '</div>');
+
+	useEffect(() => {
+		if (talents.talent_img) setImg(talents.talent_img);
+	}, [talents]);
 
 	const handleLoad = () => {
 		setLoad((load) => !load);
 	};
-
-	useEffect(() => {
-		const el = document.getElementById('info').children;
-		[...el].map((element) => {
-			element.classList.add('mt-4');
-		});
-	}, []);
-
 	return (
 		<div className="w-full flex flex-wrap mt-10">
 			<div className="w-full md:w-2/5 ">
-				{talents.talent_img !== null ? (
-					<div className="rounded-xl overflow-hidden">
-						<img src={talents.talent_img} />
+				{/* gif talent */}
+				{talents.talent_img ? (
+					<div
+						className="rounded-xl overflow-hidden"
+						style={{ width: '100%', height: '100%', position: 'relative' }}>
+						<Image src={img} layout="fill" objectFit="cover" loading="lazy" />
 					</div>
 				) : undefined}
 			</div>
@@ -34,7 +35,7 @@ export default function InfoTalent({ talents }) {
 				<div
 					id="info"
 					className={load ? 'h-40 overflow-hidden transition-all' : undefined}
-					dangerouslySetInnerHTML={{ __html: anchorTagsRemoved }}
+					dangerouslySetInnerHTML={{ __html: talents.desc }}
 				/>
 				{anchorTagsRemoved.length > 300 ? (
 					<div
@@ -57,4 +58,4 @@ export default function InfoTalent({ talents }) {
 			</div>
 		</div>
 	);
-}
+});

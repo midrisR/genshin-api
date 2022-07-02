@@ -4,7 +4,7 @@ import Filter from '../components/filter/filter';
 import filterData from '../api/filter';
 
 export async function getServerSideProps() {
-	const res = await fetch('http://localhost:5000/characters');
+	const res = await fetch('https://backend-api-genshin.herokuapp.com/characters');
 	const data = await res.json();
 	return {
 		props: { data },
@@ -66,21 +66,21 @@ export default function Home({ data }) {
 		setCharacters(filter);
 	});
 	return (
-		<div className="w-full px-20 py-20 bg-slate-800 min-h-screen">
-			<div className="py-4 flex flex-wrap">
+		<div className="w-full lg:px-20 py-20 bg-slate-700 min-h-screen">
+			<div className=" py-4 flex flex-wrap justify-center lg:justify-start">
 				<Filter
 					handleSelect={handleSelect}
 					data={filterData.visions}
 					show={openVision}
 					handleShow={() => setOpenVision((prevState) => !prevState)}
-					title="vision"
+					title={vision ? vision : 'Vision'}
 				/>
 				<Filter
 					handleSelect={handleSelectRarity}
 					data={filterData.quality}
 					show={openRarity}
 					handleShow={() => setOpenRarity((prevState) => !prevState)}
-					title="rarity"
+					title={rarity ? rarity : 'Quality'}
 				/>
 				<button
 					className="px-8 py-1 text-orange-200 text-sm rounded-full border border-orange-200 focus:outline-none"

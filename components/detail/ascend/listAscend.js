@@ -6,7 +6,7 @@ import ListMaterial from './listMaterial';
 
 export default function ListAscend({ level, id, materials }) {
 	const combat = level.slice(1);
-	const address = 'http://localhost:5000/material/find';
+	const address = 'https://backend-api-genshin.herokuapp.com/material/find';
 	const fetcher = async (url) => await axios.post(url, { material: id }).then((res) => res.data);
 	const { data, mutate } = useSWR(address, fetcher, { revalidateOnMount: false });
 

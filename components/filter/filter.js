@@ -1,6 +1,6 @@
 export default function Filter({ show, handleShow, data, title, handleSelect }) {
 	return (
-		<div className="w-1/6 px-4">
+		<div className="w-max lg:w-1/6 px-4">
 			<div className="flex w-full relative">
 				<div
 					className="rounded-full border w-full border-orange-200 flex justify-between text-sm font-light items-center px-3 py-1"

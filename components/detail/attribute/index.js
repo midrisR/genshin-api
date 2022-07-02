@@ -1,7 +1,7 @@
 export default function AttributeCard({ character, background }) {
 	return (
 		<div
-			className={`w-full lg:w-4/5 container mx-auto mt-10 rounded-xl overflow-x-auto ${background}`}>
+			className={`w-full container mx-auto mt-10 rounded-xl overflow-x-auto ${background} bg-opacity-70`}>
 			<div className="px-10 py-8">
 				<div className="text-lg text-white font-bold mb-6 pb-3 border-b border-white divide-y-2">
 					<div>{character.name}</div>
