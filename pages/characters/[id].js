@@ -54,7 +54,7 @@ export default function DetailCharacter({ character }) {
 			} min-h-screen relative`}>
 			<div className="absolute w-full bg-gradient-to-br from-black/60 to-red-900/30 z-0 h-full"></div>
 			{/* <div className="container flex justify-center items-center absolute z-0 "> */}
-			<div className="container mx-auto absolute top-5 flex justify-center items-center">
+			<div className="w-full absolute top-5 flex justify-center items-center">
 				{/*default make h-screen in class*/}
 				<img
 					src={character.header_img_url}
@@ -81,11 +81,12 @@ export default function DetailCharacter({ character }) {
 				<div>
 					<div className="lg:px-20 px-8">
 						<CharacterInfo character={character} background={background} />
-						{/* character all info */}
+
 						<AttributeCard
 							character={character.modules[0]}
 							background={elementalCard[character.filter_values.character_vision]}
 						/>
+
 						<AttributeAscend
 							ascen={character.modules[1]}
 							background={elementalCard[character.filter_values.character_vision]}

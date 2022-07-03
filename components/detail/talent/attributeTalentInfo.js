@@ -6,7 +6,7 @@ export default React.memo(function AttributeTalentInfo({ talent, background }) {
 	const [data, setData] = useState([]);
 
 	const x = talent.materials && talent.materials.map((n) => n.map(({ ep_id }) => ep_id));
-	const url = 'https://backend-api-genshin.herokuapp.com/material/find/';
+	const url = process.env.material;
 	async function getImage(id) {
 		try {
 			const { data } = await axios.post(url, { material: id });
@@ -22,7 +22,7 @@ export default React.memo(function AttributeTalentInfo({ talent, background }) {
 
 	const Icon = ({ id }) => {
 		const result = data.find((c) => c.material_id === id.toString());
-		if (!result) return <p>loading</p>;
+		if (!result) return null;
 		return (
 			<div
 				className="rounded-xl overflow-hidden"
@@ -77,7 +77,7 @@ export default React.memo(function AttributeTalentInfo({ talent, background }) {
 											return (
 												<div
 													key={u}
-													className="relative overflow-hidden bg-white/50 rounded-xl mb-3">
+													className="relative overflow-hidden bg-white/50 rounded-xl mb-3 w-max">
 													<Icon id={x.ep_id} />
 													<span className="text-white text-xxs tetx-center px-3 rounded-bl-lg bg-gray-800 absolute top-0 pb-0.5 -right-1">
 														{x.amount}
